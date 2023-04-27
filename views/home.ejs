@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1 style="text-align: center">Contact List</h1>
+
+    <ul>
+      <% for( let i of contact_List) { %> 
+        
+        <li>
+            <p> <%= i.name %>  </p>
+            <p> <%= i.emial %> </p>
+            <p> <%= i.phone %> </p>
+        </li>
+
+        <%} %>
+    </ul>
+  </body>
+</html>
