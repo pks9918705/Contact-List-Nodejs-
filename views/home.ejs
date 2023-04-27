@@ -11,11 +11,34 @@
         
         <li>
             <p> <%= i.name %>  </p>
-            <p> <%= i.emial %> </p>
+            <p> <%= i.email %> </p>
             <p> <%= i.phone %> </p>
         </li>
 
         <%} %>
     </ul>
+
+
+    <!-- ------------------------------------------------- -->
+    <!-- ------creating form --------- -->
+    <!-- ------------------------------------------------- -->
+
+    <!-- whenever you send data to server , send it into form of object  -->
+
+    <!-- name attribute show the key name for example "phone" is the key name -->
+    <form action="/create-contact" method="POST">
+
+      <div><input type="text" name="name" placeholder="Enter Name" required></div>
+
+      <div><input type="number" name="phone" placeholder="Enter phone" required></div>
+
+      <div> <input type="mail" name="email" placeholder="Enter emial" required></div>
+      
+      <button type="submit">Add Contact</button>
+
+
+
+    </form>
+
   </body>
 </html>
