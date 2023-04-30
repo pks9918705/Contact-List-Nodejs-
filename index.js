@@ -6,6 +6,10 @@ const path = require('path')
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
+//!Accessing Static Files
+app.use(express.static('assets'))
+// iit will go to directory nameD "assets"
+
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
