@@ -15,6 +15,21 @@ var contactList = [
      
 ]
 
+// creating a middleware
+app.use(function(req, res, next){
+    console.log("middleware 1 called")
+    // if you want to make changes to the req 
+    // req.myName="adi"
+    next()
+    
+})
+app.use((req, res, next)=>{
+    console.log("middleware 2 called")
+     
+    next()
+    
+})
+
 app.get('/', (req, res) => {
     return res.render('home', {
         title: 'Contact List'
@@ -48,7 +63,9 @@ app.post('/create-contact', (req, res) => {
     // method 2
     contactList.push(req.body)
 
-    return res.redirect('/');
+    // return res.redirect('/');
+    // or 
+    return res.redirect('back')
 })
 
 
