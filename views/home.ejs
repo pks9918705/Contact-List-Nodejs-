@@ -2,48 +2,82 @@
 <html lang="en">
   <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/home.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <h1 style="text-align: center">Contact List</h1>
+    <div class="bbdy">
+      <div class="heading">
+        <i class="fa-solid fa-address-book"></i>
+        <h1 style="text-align: center">Contact List</h1>
+      </div>
 
-    <ul>
-      <% for( let i of contact_List) { %> 
-        
-        <li>
-            <p> <%= i.name %>  </p>
-            <p> <%= i.email %> </p>
-            <p> <%= i.phone %> </p>
-        </li>
+      <div class="list">
+        <ul>
+          <% for( let i of contact_List) { %>
 
-        <%} %>
-    </ul>
+          <li class="line">
+            <p><%= i.name %></p>
+            
+             
+            <!-- <p> <%= i.email %> </p> -->
 
+            <p>
+              <%= i.phone %>
+              <span id="delete-span">
+                <a href="/delete-contact/?uId=<%= i.uId %>">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+                
+              </span>
+            </p>
+          </li>
 
-    <!-- ------------------------------------------------- -->
-    <!-- ------creating form --------- -->
-    <!-- ------------------------------------------------- -->
+          <%} %>
+        </ul>
+      </div>
 
-    <!-- whenever you send data to server , send it into form of object  -->
+      <!-- ------------------------------------------------- -->
+      <!-- ------creating form --------- -->
+      <!-- ------------------------------------------------- -->
 
-    <!-- name attribute show the key name for example "phone" is the key name -->
-    <form action="/create-contact" method="POST">
+      <!-- whenever you send data to server , send it into form of object  -->
 
-      <div><input type="text" name="name" placeholder="Enter Name" required></div>
+      <!-- name attribute show the key name for example "phone" is the key name -->
+      <div>
+        <form class="formm" action="/create-contact" method="POST">
+          <div class="left-form">
+            <input type="text" name="name" placeholder="Enter Name" required />
 
-      <div><input type="number" name="phone" placeholder="Enter phone" required></div>
+            <input
+              type="number"
+              name="phone"
+              placeholder="Enter phone"
+              required
+            />
 
-      <div> <input type="mail" name="email" placeholder="Enter emial" required></div>
-      
-      <button type="submit">Add Contact</button>
-
-
-
-    </form>
+            <input type="mail" name="email" placeholder="Enter emial" />
+          </div>
+          <div class="right-form">
+             
+            <button type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <!-- adding js script "homes.js" -->
     <script type="text/javascript" src="/js/home.js"></script>
 
-
+    <script
+      src="https://kit.fontawesome.com/3411fcf544.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

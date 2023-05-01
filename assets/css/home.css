@@ -1,3 +1,81 @@
-body{
-    text-align: center;
+.bbdy{
+    display: flex;
+    flex-direction: column;
+      
+
+    width: 70vw;
+    padding: 10px;
+    margin-left: 14vw;
+    margin-top: 20vh;
+    box-shadow: 10px 10px 5px rgb(197, 198, 198);
+    
+
+    background-image: url("/images/im2.png");
+    background-size: cover;
+
+    
+
 }
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    
+}
+.fa-address-book{
+    height: 28px;
+    margin-right: 10px;
+}
+
+.list{
+   /* background-color: aqua; */
+   padding-right: 31px;
+}
+.line{
+    display: flex;
+    justify-content: space-between;
+    /* border: 2px solid black; */
+    margin-bottom: 12px;
+    padding:2.5px 15px;
+    border-radius: 5px;
+    background-color: rgb(237, 234, 234);
+}
+.fa-trash:hover{
+      color: red;
+}
+#delete-span{
+    margin-left: 20px;
+}
+/* form */
+.formm{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+     
+    padding: 20px 30px;
+    padding-left: 41px;
+}
+input{
+    height: 34px;
+    margin-right: 20px;
+    padding: 2px 15px;
+    border-radius: 30px;
+}
+.left-form{
+    
+}
+button{
+    padding: 15px 50px;
+    border-radius: 55px;
+    font-size: 30px;
+    border: 2px solid black;
+    background-color: rgb(223, 220, 228);
+    color: rgb(17, 17, 17);
+     
+}
+button:hover{
+    background-color: rgb(122, 117, 130);
+    color: white;
+}
+ 

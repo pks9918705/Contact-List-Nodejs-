@@ -4,7 +4,7 @@ const port = 8000
 const path = require('path')
 //parser
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //!Accessing Static Files
 app.use(express.static('assets'))
@@ -16,22 +16,22 @@ app.set('views', path.join(__dirname, 'views'))
 // sending data from EJS to the server
 //! a variable - available globally
 var contactList = [
-     
+
 ]
 
 // creating a middleware
-app.use(function(req, res, next){
-    console.log("middleware 1 called")
+app.use(function (req, res, next) {
+    // console.log("middleware 1 called")
     // if you want to make changes to the req 
     // req.myName="adi"
     next()
-    
+
 })
-app.use((req, res, next)=>{
-    console.log("middleware 2 called")
-     
+app.use((req, res, next) => {
+    // console.log("middleware 2 called")
+
     next()
-    
+
 })
 
 app.get('/', (req, res) => {
@@ -44,10 +44,34 @@ app.get('/', (req, res) => {
     })
 });
 app.get('/practice', (req, res) => {
-    return res.render('practice',{
+    return res.render('practice', {
         title: 'Practice'
     })
 });
+
+
+//! deletig the contact item
+// 
+app.get('/delete-contact', (req, res) => {
+
+    // console.log(req.query)
+    //get the query from the url
+    let uI = req.query.uId;
+    // console.log("her",uI)
+    // console.log(uI)
+    // console.log(contactList.length)
+
+    //finding the contact index to be deleted
+    let contactIndex = contactList.findIndex(contact => contact.uId == uI);
+    // console.log(contactIndex)
+
+    if (contactIndex != -1) {
+        
+        contactList.splice(contactIndex, 1)
+    }
+    // console.log(contactList.length)
+    return res.redirect('/')
+})
 
 
 app.post('/create-contact', (req, res) => {
@@ -66,6 +90,14 @@ app.post('/create-contact', (req, res) => {
 
     // method 2
     contactList.push(req.body)
+
+    //! adding uId by putting current date and time
+    const now = new Date();
+    // console.log(now);
+    req.body.uId=now.getTime()
+
+    
+    // req.body.uId=now
 
     // return res.redirect('/');
     // or 
