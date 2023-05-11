@@ -1,4 +1,8 @@
 const express = require('express')
+
+const db = require('./config/mongoose')
+//below is the collection
+const Contact = require('./models/contact')
 const app = express()
 const port = 8000
 const path = require('path')
@@ -35,13 +39,19 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    return res.render('home', {
-        title: 'Contact List'
-        ,
-        // key value pair 
-        contact_List: contactList
-        // 'contact_List' is array of contact in js file while 'contactList' is array of contact that are available to ejs file
-    })
+
+
+    Contact.find()
+        .then((contacts) => {
+            return res.render('home', {
+                title: 'Contact List',
+                contact_list: contacts
+            })
+        })
+        // Contact.find(): This code is assuming that there is a model called Contact (possibly defined using a library like Mongoose) representing a collection in a database. The find() method is used to retrieve all documents/records from the Contact collection.
+        .catch((error) => {
+            console.log("error in fetching contact from db", error);
+        })
 });
 app.get('/practice', (req, res) => {
     return res.render('practice', {
@@ -52,56 +62,59 @@ app.get('/practice', (req, res) => {
 
 //! deletig the contact item
 // 
-app.get('/delete-contact', (req, res) => {
+// app.get('/delete-contact', async(req, res) => {
 
-    // console.log(req.query)
-    //get the query from the url
-    let uI = req.query.uId;
-    // console.log("her",uI)
-    // console.log(uI)
-    // console.log(contactList.length)
+//     let id=req.query.id
 
-    //finding the contact index to be deleted
-    let contactIndex = contactList.findIndex(contact => contact.uId == uI);
-    // console.log(contactIndex)
-
-    if (contactIndex != -1) {
-        
-        contactList.splice(contactIndex, 1)
+//    await Contact.findOneAndDelete({
+//     _id: id
+//    })
+    
+// //    return res.redirect('/')
+    
+// });
+// app.post("/delete" , async ( req , res ) =>{
+//     await Data.findOneAndRemove({
+//         _id: req.get("id")   
+//     })
+//     res.send("Deleted!")
+// })
+app.get('/delete-contact', async (req, res) => {
+    try {
+      const id = req.query.id;
+      const result = await Contact.findOneAndDelete({ _id: id });
+  
+      if (result) {
+        return res.redirect('/');
+      } else {
+        return res.status(404).send('Contact not found');
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send('Internal Server Error');
     }
-    // console.log(contactList.length)
-    return res.redirect('/')
-})
+  });
 
 
 app.post('/create-contact', (req, res) => {
+ 
+    // method 3
 
-    // return res.redirect('/practice');
-    // console.log(req.body)
-    // req k pass ek body naame ka object have jiska property hai 'name','email','phone'(key hain saray)
+    Contact.create({
+        name: req.body.name,
+        // email: req.body.email,
+        phone: req.body.phone,
+        // uId: new Date().getTime()
+    })
+        .then((result) => {
+            console.log("contact created", result)
+            return res.redirect('back')
+        })
+        .catch((err) => {
+            console.log("Error creating contact", err)
+            return res.redirect('back');
 
-    // method 1 
-    // const newContact = {
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     phone: req.body.phone
-    // }
-    // contactList.push(newContact);
-
-    // method 2
-    contactList.push(req.body)
-
-    //! adding uId by putting current date and time
-    const now = new Date();
-    // console.log(now);
-    req.body.uId=now.getTime()
-
-    
-    // req.body.uId=now
-
-    // return res.redirect('/');
-    // or 
-    return res.redirect('back')
+        })
 })
 
 
@@ -111,3 +124,4 @@ app.listen(port, function (error) {
 
     console.log("server is running on port", port)
 })
+

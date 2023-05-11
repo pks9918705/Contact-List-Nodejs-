@@ -20,7 +20,7 @@
 
       <div class="list">
         <ul>
-          <% for( let i of contact_List) { %>
+          <% for( let i of contact_list) { %>
 
           <li class="line">
             <p><%= i.name %></p>
@@ -31,7 +31,7 @@
             <p>
               <%= i.phone %>
               <span id="delete-span">
-                <a href="/delete-contact/?uId=<%= i.uId %>">
+                <a href="/delete-contact/?id=<%= i._id %>">
                   <i class="fa-solid fa-trash"></i>
                 </a>
                 
